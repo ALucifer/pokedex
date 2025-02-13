@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :class="'type-' + mainType">
+  <div class="container" :class="classType">
     <div class="header">
       <div class="information">
         <h3>{{ pokemon.name }}</h3>
@@ -35,7 +35,6 @@
           :key="stat.stat.name + pokemon.name"
           :label="stat.stat.name"
           :value="stat.base_stat"
-          :type="mainType"
         />
       </div>
     </div>
@@ -43,17 +42,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { provide, computed } from 'vue'
 import type { Pokemon } from '@/props.ts'
 import BulletType from '@/components/BulletType.vue'
 import PokemonDescription from '@/components/PokemonDescription.vue'
 import PokemonStat from '@/components/PokemonStat.vue'
+import { pokemonClassType } from '@/keys'
 
 const props = defineProps<{ pokemon: Pokemon }>()
 
-const mainType = computed(() =>
-  props.pokemon.types[0] ? props.pokemon.types[0].type.name : 'default',
+const classType = computed(
+  () => 'type-' + (props.pokemon.types[0] ? props.pokemon.types[0].type.name : 'default'),
 )
+
+provide(pokemonClassType, classType)
 </script>
 
 <style scoped lang="scss">
