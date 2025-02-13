@@ -31,7 +31,7 @@ interface PokemonAbility {
 }
 
 export interface PokemonSprites {
-  front_default: string | null
+  front_default: string | null // Error between code and github doc
 }
 
 interface NamedAPIResource {

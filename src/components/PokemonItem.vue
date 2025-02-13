@@ -5,7 +5,7 @@
     class="pokemon-card"
     @click="emit('select:pokemon', pokemon)"
   >
-    <img :src="pokemon.sprites.front_default" />
+    <img v-if="pokemon.sprites.front_default" :src="pokemon.sprites.front_default" />
     <p>{{ pokemon.name }}</p>
   </div>
 </template>
