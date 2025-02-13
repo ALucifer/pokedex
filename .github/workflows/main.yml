@@ -1,4 +1,4 @@
-name: Lint
+name: Github action
 
 on:
   push:
@@ -19,5 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run TypeScript type-check
+        run: npm run type-check
+
       - name: Run ESLint
         run: npm run lint
+
+      - name: Run tests
+        run: npm run test:unit

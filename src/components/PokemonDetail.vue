@@ -9,7 +9,7 @@
     </div>
     <div class="content">
       <ul>
-        <Type v-for="type in pokemon.types" :key="type.type.name" :type="type" />
+        <BulletType v-for="type in pokemon.types" :key="type.type.name" :type="type" />
       </ul>
       <div class="flex">
         <PokemonDescription title="Weight" :value="pokemon.weight / 10 + ' kg'">
@@ -21,7 +21,9 @@
         <PokemonDescription title="Moves" :is-last="true">
           <template #description>
             <ul class="abilities">
-              <li v-for="ability in pokemon.abilities">{{ ability.ability.name }}</li>
+              <li v-for="ability in pokemon.abilities" :key="ability.ability.name + pokemon.name">
+                {{ ability.ability.name }}
+              </li>
             </ul>
           </template>
         </PokemonDescription>
@@ -43,7 +45,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Pokemon } from '@/props.ts'
-import Type from '@/components/Type.vue'
+import BulletType from '@/components/BulletType.vue'
 import PokemonDescription from '@/components/PokemonDescription.vue'
 import PokemonStat from '@/components/PokemonStat.vue'
 

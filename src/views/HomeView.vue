@@ -12,10 +12,10 @@
 import { ref, defineAsyncComponent } from 'vue'
 import { PokemonClient } from 'pokenode-ts'
 import type { Pokemon } from '@/props'
-import Team from '@/components/Team.vue'
+import Team from '@/components/TeamList.vue'
 import PokemonDetail from '@/components/PokemonDetail.vue'
 
-const Pokedex = defineAsyncComponent(() => import('@/components/Pokedex.vue'))
+const Pokedex = defineAsyncComponent(() => import('@/components/PokedexItem.vue'))
 
 const pokedex = new PokemonClient()
 

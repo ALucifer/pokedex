@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import Pokemon from '@/components/Pokemon.vue'
+import Pokemon from '@/components/PokemonItem.vue'
 
 defineProps<{ pokemons: { name: string }[] }>()
 
