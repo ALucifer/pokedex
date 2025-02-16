@@ -1,29 +1,21 @@
 <template>
   <div class="stat__container">
-    <p class="stat__label">{{ labels[label] }}</p>
+    <p class="stat__label">{{ label }}</p>
     <span class="stat__value">{{ value }}</span>
-    <StatItem :value="value" />
+    <ProgressBar :value="value" :background-color="backgroundColor" />
   </div>
 </template>
 
 <script setup lang="ts">
-import StatItem from '@/components/StatItem.vue'
+import ProgressBar from '@/components/statistiques/ProgressBar.vue'
 
 interface Props {
   label: string
   value: number
+  backgroundColor: string
 }
 
 defineProps<Props>()
-
-const labels: { [k: string]: string } = {
-  hp: 'HP',
-  attack: 'ATK',
-  defense: 'DEF',
-  'special-attack': 'SATK',
-  'special-defense': 'SDEF',
-  speed: 'SPD',
-}
 </script>
 
 <style scoped lang="scss">

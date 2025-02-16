@@ -4,6 +4,7 @@
     :class="{ selected: active }"
     class="pokemon-card"
     @click="emit('select:pokemon', pokemon)"
+    @dblclick="addPokemon(pokemon)"
   >
     <img v-if="pokemon.sprites.front_default" :src="pokemon.sprites.front_default" />
     <p>{{ pokemon.name }}</p>
@@ -14,6 +15,7 @@
 import { ref } from 'vue'
 import { PokemonClient } from 'pokenode-ts'
 import type { Pokemon } from '@/props.ts'
+import { useTeamStore } from '@/store/team'
 
 const props = defineProps<{ name: string; active: boolean }>()
 const emit = defineEmits<{
@@ -29,6 +31,8 @@ async function fetchPokemon() {
 }
 
 await fetchPokemon()
+
+const { addPokemon } = useTeamStore()
 </script>
 
 <style scoped>

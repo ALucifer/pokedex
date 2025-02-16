@@ -1,6 +1,6 @@
 <template>
   <ul class="pokedex">
-    <Pokemon
+    <PokemonCard
       v-for="pokemon in pokemons"
       :name="pokemon.name"
       :key="pokemon.name"
@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import Pokemon from '@/components/PokemonItem.vue'
+import PokemonCard from '@/components/PokemonCard.vue'
 
 defineProps<{ pokemons: { name: string }[] }>()
 

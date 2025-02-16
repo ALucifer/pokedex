@@ -1,9 +1,11 @@
 <template>
   <div class="app">
-    <Team />
+    <div class="middle">
+      <Team v-show="team.length" />
+    </div>
     <Pokedex :pokemons="pokemons" v-model="selectedPokemon" />
     <div class="middle">
-      <PokemonDetail v-if="selectedPokemon" :pokemon="selectedPokemon" />
+      <PokemonDetail v-if="selectedPokemon" :pokemon="selectedPokemon" :key="selectedPokemon.id" />
     </div>
   </div>
 </template>
@@ -14,6 +16,7 @@ import { PokemonClient } from 'pokenode-ts'
 import type { Pokemon } from '@/props'
 import Team from '@/components/TeamList.vue'
 import PokemonDetail from '@/components/PokemonDetail.vue'
+import { useTeamStore } from '@/store/team'
 
 const Pokedex = defineAsyncComponent(() => import('@/components/PokedexItem.vue'))
 
@@ -29,6 +32,8 @@ async function fetchPokemons() {
 await fetchPokemons()
 
 const selectedPokemon = ref<Pokemon>()
+
+const { pokemons: team } = useTeamStore()
 </script>
 
 <style scoped>

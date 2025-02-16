@@ -1,17 +1,14 @@
 <template>
   <div class="bar__container">
     <p class="bar"></p>
-    <p class="bar bar__value" :class="classType"></p>
+    <p class="bar bar__value" :class="backgroundColor"></p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { pokemonClassType } from '@/keys'
-import { ref, inject } from 'vue'
+import { ref } from 'vue'
 
-const props = defineProps<{ value: number }>()
-
-const classType = inject(pokemonClassType)
+const props = defineProps<{ value: number; backgroundColor: string }>()
 
 const cssWidth = ref(props.value / 2 + '%')
 </script>
@@ -35,6 +32,7 @@ const cssWidth = ref(props.value / 2 + '%')
 
   &__value {
     width: v-bind(cssWidth);
+    background-color: v-bind('props.backgroundColor');
     z-index: 10;
   }
 }
