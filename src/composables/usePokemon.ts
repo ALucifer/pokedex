@@ -1,5 +1,5 @@
 import type { Pokemon } from '@/props'
-import { computed } from 'vue'
+import { ref } from 'vue'
 
 export enum Stats {
   hp = 'hp',
@@ -45,8 +45,8 @@ export function usePokemon(pokemon: Pokemon) {
     },
   }
 
-  const backgroundColor = computed<string>(
-    () => 'type-' + (pokemon.types[0] ? pokemon.types[0].type.name : 'default'),
+  const backgroundColor = ref<string>(
+    'type-' + (pokemon.types[0] ? pokemon.types[0].type.name : 'default'),
   )
 
   function shortName(stat: Stats) {

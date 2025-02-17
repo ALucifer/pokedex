@@ -1,5 +1,10 @@
 <template>
-  <div class="team-member" :class="backgroundColor">
+  <div
+    @mouseover="showDeleteElement = true"
+    @mouseleave="showDeleteElement = false"
+    class="team-member"
+    :class="backgroundColor"
+  >
     <img v-if="pokemon.sprites.front_default" :src="pokemon.sprites.front_default" alt="" />
     <div class="member__container">
       <p class="member__informations">
@@ -7,7 +12,7 @@
         <span>#{{ pokemon.id }}</span>
       </p>
       <div class="member__stats">
-        <Circle
+        <StatistiqueCircle
           v-for="stat in mainStatsValue"
           :key="stat.stat.name + pokemon.name"
           :value="stat.base_stat"
@@ -16,16 +21,18 @@
         />
       </div>
     </div>
-    <div class="actions" @click="removePokemon(index)">X</div>
+    <transition>
+      <div v-if="showDeleteElement" class="actions" @click="removePokemon(index)">X</div>
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { Stats, usePokemon } from '@/composables/usePokemon'
 import type { Pokemon } from '@/props'
 import { useTeamStore } from '@/store/team'
-import Circle from '@/components/statistiques/Circle.vue'
+import StatistiqueCircle from '@/components/statistiques/StatistiqueCircle.vue'
 
 const props = defineProps<{ pokemon: Pokemon; index: number }>()
 
@@ -37,6 +44,8 @@ const mainStatsValue = computed(() => {
     [Stats.attack, Stats.defense, Stats.hp].includes(stat.stat.name as Stats),
   )
 })
+
+const showDeleteElement = ref(false)
 </script>
 
 <style scoped lang="scss">
@@ -48,10 +57,6 @@ const mainStatsValue = computed(() => {
   min-height: 130px;
 
   .actions {
-    display: none;
-  }
-
-  &:hover > .actions {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,5 +81,15 @@ const mainStatsValue = computed(() => {
     display: flex;
     gap: 8px;
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
