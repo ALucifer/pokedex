@@ -50,11 +50,19 @@ export function usePokemon(pokemon: Pokemon) {
   )
 
   function shortName(stat: Stats) {
-    return statsConfirugration[stat].shortName ?? new Error('Configuration missing from %s')
+    if (!statsConfirugration[stat]) {
+      throw new Error(`Stat '${stat}' not found in configuration`)
+    }
+
+    return statsConfirugration[stat].shortName
   }
 
   function statBackgroundColor(stat: Stats): string {
-    return statsConfirugration[stat].color ?? new Error('Configuration missing')
+    if (!statsConfirugration[stat]) {
+      throw new Error(`Stat '${stat}' not found in configuration`)
+    }
+
+    return statsConfirugration[stat].color
   }
 
   return {

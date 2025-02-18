@@ -13,7 +13,7 @@ const props = defineProps<{ value: number; backgroundColor: string }>()
 const cssWidth = ref(props.value / 2 + '%')
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .bar {
   position: absolute;
   width: 100%;
