@@ -20,5 +20,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: master # Branche où on veut déployer
-          folder: build # Dossier qui contient les fichiers statiques générés
+          folder: dist # Dossier qui contient les fichiers statiques générés
           clean: true # Permet de nettoyer l'historique pour n'avoir que le dernier build
