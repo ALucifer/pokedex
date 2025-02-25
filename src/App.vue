@@ -1,6 +1,6 @@
 <template>
   <Suspense>
-    <RouterView />
+    <router-view />
   </Suspense>
 </template>
 

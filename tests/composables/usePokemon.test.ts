@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import type { Pokemon } from '@/props.ts'
 import { Stats, usePokemon } from '@/composables/usePokemon.ts'
+import type { Pokemon } from 'pokenode-ts'
 
 describe('usePokemon composable', () => {
   const pokemon = {

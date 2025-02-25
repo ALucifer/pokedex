@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PokemonType } from '@/props.ts'
+import type { PokemonType } from 'pokenode-ts'
 
 defineProps<{ type: PokemonType }>()
 </script>

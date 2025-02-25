@@ -22,7 +22,7 @@
       </div>
     </div>
     <transition>
-      <div v-if="showDeleteElement" class="actions" @click="removePokemon(index)">X</div>
+      <div v-if="showDeleteElement" class="actions" @click="emits('delete')">X</div>
     </transition>
   </div>
 </template>
@@ -30,14 +30,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Stats, usePokemon } from '@/composables/usePokemon'
-import type { Pokemon } from '@/props'
-import { useTeamStore } from '@/store/team'
 import StatistiqueCircle from '@/components/statistiques/StatistiqueCircle.vue'
+import type { Pokemon } from 'pokenode-ts'
 
-const props = defineProps<{ pokemon: Pokemon; index: number }>()
+const props = defineProps<{ pokemon: Pokemon }>()
+const emits = defineEmits<{
+  (e: 'delete'): void
+}>()
 
 const { backgroundColor, statBackgroundColor, shortName } = usePokemon(props.pokemon)
-const { removePokemon } = useTeamStore()
 
 const mainStatsValue = computed(() => {
   return props.pokemon.stats.filter((stat) =>

@@ -1,44 +1,57 @@
 <template>
-  <div class="app">
-    <div class="middle">
-      <Team v-show="team.length" />
-    </div>
-    <Pokedex :pokemons="pokemons" v-model="selectedPokemon" />
-    <div class="middle">
-      <PokemonDetail v-if="selectedPokemon" :pokemon="selectedPokemon" :key="selectedPokemon.id" />
-    </div>
+  <div class="middle app">
+    <RouterLink :to="{ name: 'pokedex' }" class="card">Pokedex</RouterLink>
+    <RouterLink :to="{ name: 'team' }" class="card"
+      >Equipe
+      <span v-if="totalPokemons > 0" class="pin">{{ totalPokemons }}</span>
+    </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineAsyncComponent } from 'vue'
-import { PokemonClient } from 'pokenode-ts'
-import type { Pokemon } from '@/props'
-import Team from '@/components/TeamList.vue'
-import PokemonDetail from '@/components/PokemonDetail.vue'
 import { useTeamStore } from '@/store/team'
+import { storeToRefs } from 'pinia'
 
-const Pokedex = defineAsyncComponent(() => import('@/components/PokedexItem.vue'))
-
-const pokedex = new PokemonClient()
-
-const pokemons = ref<Array<{ name: string }>>([])
-
-async function fetchPokemons() {
-  const { results } = await pokedex.listPokemons(0, 151) // Premiere génération
-  pokemons.value = results
-}
-
-await fetchPokemons()
-
-const selectedPokemon = ref<Pokemon>()
-
-const { pokemons: team } = useTeamStore()
+const teamStore = useTeamStore()
+const { totalPokemons } = storeToRefs(teamStore)
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .app {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  gap: 36px;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%);
+  position: relative;
+
+  &:hover {
+    background: linear-gradient(to bottom, #f7f7f7 0%, #eeeeee 100%);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.pin {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  padding: 4px 8px;
+  border-radius: 16px;
+  color: white;
 }
 </style>

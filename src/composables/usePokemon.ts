@@ -1,4 +1,4 @@
-import type { Pokemon } from '@/props'
+import type { Pokemon } from 'pokenode-ts'
 import { ref } from 'vue'
 
 export enum Stats {
